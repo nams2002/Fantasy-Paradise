@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+myenv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Local database
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# Documentation
+README.md
+SETUP_GUIDE.md
+
+# Development files
+docker-compose.yml
+test_*.py
+debug_*.py
+check_*.py
+create_*.py
+fix_*.py
+populate_*.py
+setup_*.py
+
+# Node modules (if any)
+node_modules/
+package-lock.json
