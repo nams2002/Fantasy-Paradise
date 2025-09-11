@@ -31,6 +31,14 @@ ENV/
 env.bak/
 venv.bak/
 
+# Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Local development files
+liveroom.db
+
 # IDE
 .vscode/
 .idea/
