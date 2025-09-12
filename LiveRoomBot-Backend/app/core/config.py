@@ -8,7 +8,7 @@ load_dotenv()
 class Settings:
     # Database
     DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./liveroom.db")
-    
+
     # OpenAI
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
 
@@ -28,26 +28,27 @@ class Settings:
 
     # Image Generation
     DALLE_API_KEY: str = os.getenv("DALLE_API_KEY", "")  # Usually same as OpenAI key
-    
-    # JWT
+
+    # JWT / Secrets
     SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
+    SEED_SECRET: str = os.getenv("SEED_SECRET", "")  # Optional separate secret for the seeding endpoint
     ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
-    
+
     # Redis
     REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379")
-    
+
     # Application
     DEBUG: bool = os.getenv("DEBUG", "True").lower() == "true"
     HOST: str = os.getenv("HOST", "0.0.0.0")
     PORT: int = int(os.getenv("PORT", "8000"))
-    
+
     # CORS
     ALLOWED_ORIGINS: List[str] = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
-    
+
     # Rate Limiting
     RATE_LIMIT_PER_MINUTE: int = int(os.getenv("RATE_LIMIT_PER_MINUTE", "60"))
-    
+
     class Config:
         env_file = ".env"
 
