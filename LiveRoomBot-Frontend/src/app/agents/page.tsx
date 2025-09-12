@@ -9,7 +9,7 @@ import Navbar from "@/component/Navbar";
 // ---------------------------------------------
 // API Configuration
 // ---------------------------------------------
-const API_BASE_URL = "http://localhost:8000/api/v1";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
 
 // ---------------------------------------------
 // Interfaces
@@ -25,16 +25,10 @@ interface Character {
   age_range: string;
   background_story: string;
   category_id: number;
+  subcategory_id?: number;
   is_active: boolean;
 }
 
-interface Category {
-  id: number;
-  name: string;
-  description: string;
-  image_url: string;
-  is_active: boolean;
-}
 
 // ---------------------------------------------
 // API Functions
@@ -50,16 +44,6 @@ const fetchCharacters = async (): Promise<Character[]> => {
   }
 };
 
-const fetchCategories = async (): Promise<Category[]> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/categories/`);
-    if (!response.ok) throw new Error('Failed to fetch categories');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return [];
-  }
-};
 
 // ---------------------------------------------
 // Keyframes & Animations
@@ -312,7 +296,9 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
 };
 
 // Small Agent Card Component, now accepts a "gradient" prop
-interface AgentCardSmallProps extends Agent {
+interface AgentCardSmallProps {
+  name: string;
+  images: string[];
   gradient: string;
 }
 
@@ -343,11 +329,6 @@ const AgentCardSmall: React.FC<AgentCardSmallProps> = ({
 // -------------------------------
 
 // Convert the container to a motion component for fade-in animation.
-interface AgentRowProps {
-  agent: Agent;
-  gradient: string;
-  delay?: number;
-}
 
 const AgentRowContainer = styled(motion.div)`
   display: flex;
@@ -482,7 +463,6 @@ const CharacterRow: React.FC<CharacterRowProps> = ({ character, gradient, delay 
 // ---------------------------------------------
 const AgentsPage: React.FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSubcategoryName, setSelectedSubcategoryName] = useState<string>("");
 
@@ -501,10 +481,7 @@ const AgentsPage: React.FC = () => {
     const loadData = async () => {
       setLoading(true);
       try {
-        const [charactersData, categoriesData] = await Promise.all([
-          fetchCharacters(),
-          fetchCategories()
-        ]);
+        const charactersData = await fetchCharacters();
 
         // Filter characters by selected subcategory if available
         const selectedSubcategoryId = localStorage.getItem("selectedSubcategoryId");
@@ -519,7 +496,6 @@ const AgentsPage: React.FC = () => {
         }
 
         setCharacters(filteredCharacters);
-        setCategories(categoriesData.filter(c => c.is_active));
       } catch (error) {
         console.error('Error loading data:', error);
       } finally {
@@ -543,7 +519,7 @@ const AgentsPage: React.FC = () => {
             >
               💕
             </motion.div>
-            <p style={{ color: 'white' }}>Preparing your naughty companions... They can't wait to meet you 😈</p>
+            <p style={{ color: 'white' }}>Preparing your naughty companions... They can&apos;t wait to meet you 😈</p>
           </div>
         </PageContainer>
       </div>

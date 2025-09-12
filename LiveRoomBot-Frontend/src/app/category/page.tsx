@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/component/Navbar";
 
 // API Configuration
-const API_BASE_URL = "http://localhost:8000/api/v1";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
 
 // Define the data structure
 interface Category {
@@ -34,16 +34,6 @@ interface DisplayCategory {
 }
 
 // API Functions
-const fetchCategories = async (): Promise<Category[]> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/categories/`);
-    if (!response.ok) throw new Error('Failed to fetch categories');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return [];
-  }
-};
 
 const fetchSubcategories = async (): Promise<Subcategory[]> => {
   try {
@@ -408,7 +398,7 @@ const Category: React.FC = () => {
             >
               💕
             </motion.div>
-            <p style={{ color: 'white' }}>Preparing your naughty temptations... They're getting ready to seduce you 😈💋</p>
+            <p style={{ color: 'white' }}>Preparing your naughty temptations... They&apos;re getting ready to seduce you 😈💋</p>
           </div>
         </PageContainer>
       </div>

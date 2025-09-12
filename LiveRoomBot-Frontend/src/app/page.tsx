@@ -891,7 +891,7 @@ const dummyAgents: Agent[] = [
       "/assets/empathy.png",
       "/assets/empathy.png",
     ],
-    description: "Flirtatious, playful, and creates intimate moments when you're alone together 💋",
+    description: "Flirtatious, playful, and creates intimate moments when you are alone together 💋",
   },
   {
     id: 6,
@@ -1162,7 +1162,7 @@ const Home: React.FC = () => {
           <FutureScopeText>
             <h2>🔥 Your Personal Pleasure Palace</h2>
             <p>
-              Step into a world where your deepest fantasies come alive through intimate AI companions. With 36 irresistible personalities across 6 seductive categories, each conversation is designed to fulfill your desires and leave you craving more. From naughty step-sisters to dominant bosses, sensual therapists to exotic dancers - your perfect companion is waiting to seduce you into the most addictive conversations you've ever experienced. 💋
+              Step into a world where your deepest fantasies come alive through intimate AI companions. With 36 irresistible personalities across 6 seductive categories, each conversation is designed to fulfill your desires and leave you craving more. From naughty step-sisters to dominant bosses, sensual therapists to exotic dancers - your perfect companion is waiting to seduce you into the most addictive conversations you have ever experienced. 💋
             </p>
           </FutureScopeText>
           <FutureScopeTimeline>

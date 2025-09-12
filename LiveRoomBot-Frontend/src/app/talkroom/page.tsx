@@ -8,7 +8,7 @@ import Navbar from "@/component/Navbar";
 // ---------------------------------------------
 // API Configuration
 // ---------------------------------------------
-const API_BASE_URL = "http://localhost:8000/api/v1";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000/api/v1";
 
 // ---------------------------------------------
 // Interfaces
@@ -717,7 +717,6 @@ const sendMessage = async (message: string, characterId: number): Promise<string
 // ---------------------------------------------
 const Talkroom: React.FC = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
-  const [characters, setCharacters] = useState<Character[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -737,7 +736,6 @@ const Talkroom: React.FC = () => {
     // Load characters from API
     const loadCharacters = async () => {
       const fetchedCharacters = await fetchCharacters();
-      setCharacters(fetchedCharacters);
 
       // Get selected character from localStorage or use first character
       const storedCharacterId = localStorage.getItem("selectedCharacterId");
@@ -976,6 +974,8 @@ const Talkroom: React.FC = () => {
           </ChatWindow>
         </RightColumn>
       </TalkroomContainer>
+          <SiriLogo onClick={handleVoiceClick} />
+
     </div>
   );
 };
