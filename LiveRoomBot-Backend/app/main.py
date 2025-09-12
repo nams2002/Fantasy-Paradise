@@ -8,6 +8,8 @@ from app.core.config import settings
 from app.api.v1.api import api_router
 from app.core.database import engine
 from app.models import Base
+from app.scripts.init_data import init_database
+
 
 # Load environment variables
 load_dotenv()
@@ -22,6 +24,19 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# Auto-seed categories/characters on startup (idempotent)
+@app.on_event("startup")
+async def auto_seed_on_startup():
+    try:
+        if os.getenv("AUTO_SEED_ON_STARTUP", "true").lower() == "true":
+            print("AUTO_SEED_ON_STARTUP is enabled — running init_database()")
+            init_database()
+        else:
+            print("AUTO_SEED_ON_STARTUP disabled — skipping seeding")
+    except Exception as e:
+        print(f"Auto seeding failed: {e}")
+
 
 # CORS middleware - Production configuration
 allowed_origins = [
