@@ -38,19 +38,17 @@ async def auto_seed_on_startup():
         print(f"Auto seeding failed: {e}")
 
 
-# CORS middleware - Production configuration
-allowed_origins = [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "https://liveroom-ai.vercel.app",  # Your Vercel domain
-    "https://www.liveroom-ai.com",     # Your custom domain
-]
+# CORS middleware - configurable via env (ALLOWED_ORIGINS)
+# Example env: ALLOWED_ORIGINS=https://your-app.vercel.app,https://your-domain.com
+allowed_origins = [o.strip() for o in settings.ALLOWED_ORIGINS] if settings.ALLOWED_ORIGINS else []
 
 # In production, use specific origins; in development, allow all
 if os.getenv("ENVIRONMENT") == "production":
     cors_origins = allowed_origins
 else:
     cors_origins = ["*"]
+
+print(f"CORS allowed origins: {cors_origins}")
 
 app.add_middleware(
     CORSMiddleware,
